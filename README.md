@@ -1,1 +1,1 @@
-# cs3733-infatigable
+# cs3733-indefatigable
