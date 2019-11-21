@@ -4,12 +4,13 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import edu.wpi.cs.indefatigable.db.VideoDAO;
+import edu.wpi.cs.indefatigable.http.AllVideosRequest;
 import edu.wpi.cs.indefatigable.http.AllVideosResponse;
 import edu.wpi.cs.indefatigable.model.Video;
 
 import java.util.List;
 
-public class ListAllVideosHandler implements RequestHandler<Object, AllVideosResponse> {
+public class ListAllVideosHandler implements RequestHandler<AllVideosRequest, AllVideosResponse> {
 
     public LambdaLogger logger;
     /** Load from RDS, if it exists
@@ -23,9 +24,10 @@ public class ListAllVideosHandler implements RequestHandler<Object, AllVideosRes
     }
 
     @Override
-    public AllVideosResponse handleRequest(Object input, Context context) {
+    public AllVideosResponse handleRequest(AllVideosRequest req, Context context) {
         logger = context.getLogger();
         logger.log("Loading Java Lambda handler to list all constants");
+        logger.log(req.toString());
         AllVideosResponse response;
         try {
             List<Video> list = getVideos();
