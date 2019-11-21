@@ -17,7 +17,7 @@ public class DatabaseUtil {
 	//
 	// The above link shows how to do that.
 	//todo use our credentials
-	public final static String rdsMySqlDatabaseUrl = "calculatordb.chlxnoru1n0z.us-east-1.rds.amazonaws.com";
+	public final static String rdsMySqlDatabaseUrl = "indifatigabledb.ccgn6fnfh60a.us-east-2.rds.amazonaws.com";
 	public final static String dbUsername = "calcAdmin";
 	public final static String dbPassword = "calc:pass";
 		
@@ -25,7 +25,7 @@ public class DatabaseUtil {
 	public final static String rdsMySqlDatabasePort = "3306";
 	public final static String multiQueries = "?allowMultiQueries=true";
 	   
-	public final static String dbName = "innodb";    // default created from MySQL WorkBench
+	public final static String dbName = "Indefatigable";    // default created from MySQL WorkBench
 
 	// pooled across all usages.
 	static Connection conn;
