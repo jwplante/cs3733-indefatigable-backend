@@ -32,6 +32,6 @@ public class ListAllPlaylistsHandler implements RequestHandler<Object,AllPlaylis
 	ArrayList<Playlist> getPlaylists() throws Exception{
 		//get playlists from RDS
 		PlaylistDAO dao = new PlaylistDAO();
-		return dao.playlists();
+		return dao.getAllPlaylists();
 	}
 }
