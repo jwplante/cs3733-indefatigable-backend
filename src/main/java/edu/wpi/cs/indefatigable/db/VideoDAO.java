@@ -1,15 +1,19 @@
 package edu.wpi.cs.indefatigable.db;
 
 import edu.wpi.cs.indefatigable.model.Video;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VideoDAO {
     java.sql.Connection conn;
 
     public VideoDAO() {
-        try  {
+        try {
             conn = DatabaseUtil.connect();
         } catch (Exception e) {
             conn = null;
@@ -20,7 +24,7 @@ public class VideoDAO {
         try {
             Video video = null;
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Video WHERE vuid=?;");
-            ps.setString(1,  vuid);
+            ps.setString(1, vuid);
             ResultSet resultSet = ps.executeQuery();
 
             while (resultSet.next()) {
@@ -48,5 +52,23 @@ public class VideoDAO {
         String title = resultSet.getString("title");
         return new Video(vuid, url, remoteAvailability, isRemote, character, transcript, title);
 
+    }
+
+    public List<Video> getAllVideos() throws Exception {
+        List<Video> allVideos = new ArrayList<>();
+        try {
+            Statement statement = conn.createStatement();
+            String query = "SELECT * FROM Video";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                Video v = generateVideo(resultSet);
+                allVideos.add(v);
+            }
+            resultSet.close();
+            return allVideos;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
