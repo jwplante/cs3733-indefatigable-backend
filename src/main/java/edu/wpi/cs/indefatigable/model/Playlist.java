@@ -70,4 +70,8 @@ public class Playlist {
 					(p.name.equals(this.name)));
 		}
 	}
+	
+	public String getName() {
+		return this.name;
+	}
 }
