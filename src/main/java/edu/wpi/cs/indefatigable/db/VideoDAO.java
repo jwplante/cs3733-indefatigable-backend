@@ -16,6 +16,10 @@ public class VideoDAO {
         }
     }
 
+    public VideoDAO(java.sql.Connection conn) {
+        this.conn = conn;
+    }
+
     public Video getVideo(String vuid) throws Exception {
         try {
             Video video = null;

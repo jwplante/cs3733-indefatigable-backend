@@ -7,16 +7,25 @@ import java.util.UUID;
 
 public class Playlist {
 	String puid;
+	String name;
 	ArrayList<Video> videos;
 	
 	// Constructors
-	Playlist(String puid, ArrayList<Video> videos) {
+	public Playlist(String puid, String name, ArrayList<Video> videos) {
 		this.puid = puid;
+		this.name = name;
 		this.videos = videos;
 	}
-	
-	Playlist() {
+
+	public Playlist(String puid, String name) {
 		this.videos = new ArrayList<Video>();
+		this.name = name;
+		this.puid = puid;
+	}
+
+	public Playlist(String name) {
+		this.videos = new ArrayList<Video>();
+		this.name = name;
 		this.puid = UUID.randomUUID().toString();
 	}
 	
@@ -30,7 +39,7 @@ public class Playlist {
 	
 	/***
 	 * Add video to the Playlist
-	 * @param (Video) v - Video to be added
+	 * @param  v - Video to be added
 	 * @return (boolean) true if added, false if not
 	 */
 	public boolean addVideo(Video v) {
@@ -39,7 +48,7 @@ public class Playlist {
 	
 	/***
 	 * Remove video from the Playlist
-	 * @param (Video) v - Video to be removed
+	 * @param v - Video to be removed
 	 * @return (boolean) true if removed, false if not
 	 */
 	public boolean removeVideo(Video v) {
@@ -56,7 +65,9 @@ public class Playlist {
 		if(!(o instanceof Playlist)) { return false; }
 		else {
 			Playlist p = (Playlist) o;
-			return (p.puid.equals(this.puid)) && (p.videos.equals(this.videos));
+			return (p.puid.equals(this.puid)) &&
+					(p.videos.equals(this.videos) &&
+					(p.name.equals(this.name)));
 		}
 	}
 }
