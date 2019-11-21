@@ -2,6 +2,7 @@ package edu.wpi.cs.indefatigable.model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Playlist {
@@ -33,16 +34,29 @@ public class Playlist {
 	 * @return (boolean) true if added, false if not
 	 */
 	public boolean addVideo(Video v) {
-		return true;
+		return this.videos.add(v);
 	}
 	
 	/***
-	 * Remvoe video from the Playlist
+	 * Remove video from the Playlist
 	 * @param (Video) v - Video to be removed
 	 * @return (boolean) true if removed, false if not
 	 */
 	public boolean removeVideo(Video v) {
-		return true;
+		return this.videos.remove(v);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.puid, this.videos);
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		if(!(o instanceof Playlist)) { return false; }
+		else {
+			Playlist p = (Playlist) o;
+			return (p.puid.equals(this.puid)) && (p.videos.equals(this.videos));
+		}
+	}
 }
