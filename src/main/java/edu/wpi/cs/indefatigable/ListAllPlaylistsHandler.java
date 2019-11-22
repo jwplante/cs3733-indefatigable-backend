@@ -1,11 +1,8 @@
 package edu.wpi.cs.indefatigable;
 import java.util.ArrayList;
-
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-
-
 import edu.wpi.cs.indefatigable.db.PlaylistDAO;
 import edu.wpi.cs.indefatigable.http.AllPlaylistsResponse;
 import edu.wpi.cs.indefatigable.model.Playlist;
