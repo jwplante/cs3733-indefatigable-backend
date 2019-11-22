@@ -6,27 +6,27 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Playlist {
-	String puid;
+	String uid;
 	String name;
 	ArrayList<Video> videos;
 	
 	// Constructors
-	public Playlist(String puid, String name, ArrayList<Video> videos) {
-		this.puid = puid;
+	public Playlist(String uid, String name, ArrayList<Video> videos) {
+		this.uid = uid;
 		this.name = name;
 		this.videos = videos;
 	}
 
-	public Playlist(String puid, String name) {
+	public Playlist(String uid, String name) {
 		this.videos = new ArrayList<Video>();
 		this.name = name;
-		this.puid = puid;
+		this.uid = uid;
 	}
 
 	public Playlist(String name) {
 		this.videos = new ArrayList<Video>();
 		this.name = name;
-		this.puid = UUID.randomUUID().toString();
+		this.uid = UUID.randomUUID().toString();
 	}
 	
 	/***
@@ -35,6 +35,14 @@ public class Playlist {
 	 */
 	public Iterator<Video> getAllVideos() {	
 		return this.videos.iterator();
+	}
+	
+	/***
+	 * Get an array containing all videos in the Playlist
+	 * @return (ArrayList<Video>) An array containing all videos in the Playlist
+	 */
+	public ArrayList<Video> getVideos() {	
+		return this.videos;
 	}
 	
 	/***
@@ -54,10 +62,17 @@ public class Playlist {
 	public boolean removeVideo(Video v) {
 		return this.videos.remove(v);
 	}
+	
+	/***
+	 * Gets the playlist id
+	 */
+	public String getID() {
+		return this.uid;
+	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.puid, this.videos);
+		return Objects.hash(this.uid, this.videos);
 	}
 	
 	@Override
@@ -65,7 +80,7 @@ public class Playlist {
 		if(!(o instanceof Playlist)) { return false; }
 		else {
 			Playlist p = (Playlist) o;
-			return (p.puid.equals(this.puid)) &&
+			return (p.uid.equals(this.uid)) &&
 					(p.videos.equals(this.videos) &&
 					(p.name.equals(this.name)));
 		}
