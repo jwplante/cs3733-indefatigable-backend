@@ -1,8 +1,10 @@
 package edu.wpi.cs.indefatigable.http;
 
 public class GetPlaylistRequest {
-    String id;
 
+	public String id;
+    
+	public GetPlaylistRequest() {}
     public GetPlaylistRequest(String id) {
         this.id = id;
     }

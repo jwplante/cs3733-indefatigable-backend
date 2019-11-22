@@ -28,6 +28,9 @@ public class GetPlaylistHandler implements RequestHandler<GetPlaylistRequest, Ge
     @Override
     public GetPlaylistResponse handleRequest(GetPlaylistRequest input, Context context) {
         try {
+        	logger = context.getLogger();
+        	logger.log(input.toString());
+        	
             // Getting the playlist ID
             String puid = input.getID();
             Playlist playlistToSend = loadValueFromRDS(puid);
