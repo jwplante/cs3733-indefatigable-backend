@@ -60,14 +60,10 @@ public class VideoDAO {
     }
 
     private RemotelyAvailableVideo generateRAVideo(ResultSet resultSet) throws SQLException {
-        String vuid = resultSet.getString("vuid");
         String url = resultSet.getString("url");
-        boolean remoteAvailability = resultSet.getBoolean("remoteAvailability");
-        boolean isRemote = resultSet.getBoolean("isRemote");
         String character = resultSet.getString("character");
         String transcript = resultSet.getString("transcript");
-        String title = resultSet.getString("title");
-        return new RemotelyAvailableVideo(vuid, url, remoteAvailability, isRemote, character, transcript, title);
+        return new RemotelyAvailableVideo(url, character, transcript);
 
     }
     public ArrayList<Video> getAllVideos() throws Exception {
@@ -90,7 +86,7 @@ public class VideoDAO {
     
     public ArrayList<RemotelyAvailableVideo> getAllRAVideos() throws Exception {
         try {
-            ArrayList<RemotelyAvailableVideo> allVideos = new ArrayList<>();
+            ArrayList<RemotelyAvailableVideo> allVideos = new ArrayList<RemotelyAvailableVideo>();
             PreparedStatement statement = conn.prepareStatement("SELECT * FROM Video WHERE remoteAvailability=1");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
