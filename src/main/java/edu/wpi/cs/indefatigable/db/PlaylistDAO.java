@@ -43,22 +43,19 @@ public class PlaylistDAO {
     
     public ArrayList<Playlist> getAllPlaylists() throws Exception{
         try {
-            ArrayList<Playlist> playlist = new ArrayList<Playlist>();
+            ArrayList<Playlist> playlist = new ArrayList<>();
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Playlist;");
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
             	String puid = resultSet.getString("puid");
                 playlist.add(generatePlaylist(puid, resultSet));
             }
-
             resultSet.close();
             ps.close();
-
             return playlist;
-
         } catch (Exception e) {
             e.printStackTrace();
-            throw new Exception("Failed in getting video: " + e.getMessage());
+            throw new Exception("Failed in getting playlists: " + e.getMessage());
         }
     }
     //todo create remaining methods like ConstantsDAO
