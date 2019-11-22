@@ -45,6 +45,21 @@ public class VideoDAO {
             throw new Exception("Failed in getting video: " + e.getMessage());
         }
     }
+    
+    public boolean deleteVideo(String vuid) throws Exception{
+    	 try {
+             PreparedStatement ps = conn.prepareStatement("DELETE FROM Video WHERE vuid=?;");
+             ps.setString(1, vuid);
+             int numAffected = ps.executeUpdate();
+             ps.close();
+             
+             return (numAffected == 1);
+
+         } catch (Exception e) {
+             e.printStackTrace();
+             throw new Exception("Failed in deleting video: " + e.getMessage());
+         }
+    }
     //todo create remaining methods like ConstantsDAO
 
     private Video generateVideo(ResultSet resultSet) throws SQLException {
@@ -101,4 +116,6 @@ public class VideoDAO {
             throw new Exception("Failed in getting RA Videos: " + e.getMessage());
         }
     }
+    
+    
 }
