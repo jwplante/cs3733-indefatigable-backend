@@ -17,7 +17,7 @@ public class DatabaseUtil {
 	//
 	// The above link shows how to do that.
 	//todo use our credentials
-	public final static String rdsMySqlDatabaseUrl = "indifatigabledb.ccgn6fnfh60a.us-east-2.rds.amazonaws.com";
+	public final static String rdsMySqlDatabaseUrl = "indefatigabledb.ccgn6fnfh60a.us-east-2.rds.amazonaws.com";
 	public final static String dbUsername = "calcAdmin";
 	public final static String dbPassword = "calc:pass";
 		
