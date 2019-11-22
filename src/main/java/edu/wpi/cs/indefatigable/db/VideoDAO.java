@@ -1,5 +1,6 @@
 package edu.wpi.cs.indefatigable.db;
 
+import edu.wpi.cs.indefatigable.model.RemotelyAvailableVideo;
 import edu.wpi.cs.indefatigable.model.Video;
 
 import java.sql.PreparedStatement;
@@ -58,6 +59,17 @@ public class VideoDAO {
 
     }
 
+    private RemotelyAvailableVideo generateRAVideo(ResultSet resultSet) throws SQLException {
+        String vuid = resultSet.getString("vuid");
+        String url = resultSet.getString("url");
+        boolean remoteAvailability = resultSet.getBoolean("remoteAvailability");
+        boolean isRemote = resultSet.getBoolean("isRemote");
+        String character = resultSet.getString("character");
+        String transcript = resultSet.getString("transcript");
+        String title = resultSet.getString("title");
+        return new RemotelyAvailableVideo(vuid, url, remoteAvailability, isRemote, character, transcript, title);
+
+    }
     public ArrayList<Video> getAllVideos() throws Exception {
         try {
             ArrayList<Video> allVideos = new ArrayList<>();
@@ -73,6 +85,24 @@ public class VideoDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Failed in getting Videos: " + e.getMessage());
+        }
+    }
+    
+    public ArrayList<RemotelyAvailableVideo> getAllRAVideos() throws Exception {
+        try {
+            ArrayList<RemotelyAvailableVideo> allVideos = new ArrayList<>();
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM Video WHERE remoteAvailability=1");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+            	RemotelyAvailableVideo v = generateRAVideo(resultSet);
+                allVideos.add(v);
+            }
+            resultSet.close();
+            statement.close();
+            return allVideos;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Failed in getting RA Videos: " + e.getMessage());
         }
     }
 }
