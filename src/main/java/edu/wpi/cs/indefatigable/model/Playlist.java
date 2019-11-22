@@ -38,6 +38,14 @@ public class Playlist {
 	}
 	
 	/***
+	 * Get an array containing all videos in the Playlist
+	 * @return (ArrayList<Video>) An array containing all videos in the Playlist
+	 */
+	public ArrayList<Video> getVideos() {	
+		return this.videos;
+	}
+	
+	/***
 	 * Add video to the Playlist
 	 * @param  v - Video to be added
 	 * @return (boolean) true if added, false if not
@@ -53,6 +61,13 @@ public class Playlist {
 	 */
 	public boolean removeVideo(Video v) {
 		return this.videos.remove(v);
+	}
+	
+	/***
+	 * Gets the playlist id
+	 */
+	public String getID() {
+		return this.uid;
 	}
 
 	@Override
