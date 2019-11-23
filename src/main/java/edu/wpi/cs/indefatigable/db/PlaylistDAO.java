@@ -65,6 +65,19 @@ public class PlaylistDAO {
         }
     }
 
+    public boolean deletePlaylist(String puid) throws Exception {
+        try {
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM Playlist WHERE puid=?;");
+            ps.setString(1, puid);
+            int numAffected = ps.executeUpdate();
+            ps.close();
+            return (numAffected == 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Failed in deleting playlist: " + e.getMessage());
+        }
+    }
+
     public ArrayList<Playlist> getAllPlaylists() throws Exception {
         try {
             ArrayList<Playlist> playlist = new ArrayList<>();

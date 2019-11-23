@@ -45,22 +45,34 @@ public class VideoDAO {
             throw new Exception("Failed in getting video: " + e.getMessage());
         }
     }
-    
-    public boolean deleteVideo(String vuid) throws Exception{
-    	 try {
-             PreparedStatement ps = conn.prepareStatement("DELETE FROM Video WHERE vuid=?;");
-             ps.setString(1, vuid);
-             int numAffected = ps.executeUpdate();
-             ps.close();
-             
-             return (numAffected == 1);
 
-         } catch (Exception e) {
-             e.printStackTrace();
-             throw new Exception("Failed in deleting video: " + e.getMessage());
-         }
+    public boolean deleteVideo(String vuid) throws Exception {
+        try {
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM Video WHERE vuid=?;");
+            ps.setString(1, vuid);
+            int numAffected = ps.executeUpdate();
+            ps.close();
+
+            return (numAffected == 1);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Failed in deleting video: " + e.getMessage());
+        }
     }
-    //todo create remaining methods like ConstantsDAO
+
+    public boolean markVideoAsRemote(String vuid) throws Exception {
+        try {
+            PreparedStatement ps = conn.prepareStatement("UPDATE Video SET remoteAvailability=1 WHERE vuid=?");
+            ps.setString(1, vuid);
+            int numAffected = ps.executeUpdate();
+            ps.close();
+            return (numAffected == 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Failed in marking video: " + e.getMessage());
+        }
+    }
 
     private Video generateVideo(ResultSet resultSet) throws SQLException {
         String vuid = resultSet.getString("vuid");
@@ -81,6 +93,7 @@ public class VideoDAO {
         return new RemotelyAvailableVideo(url, character, transcript);
 
     }
+
     public ArrayList<Video> getAllVideos() throws Exception {
         try {
             ArrayList<Video> aVideos = new ArrayList<>();
@@ -98,14 +111,14 @@ public class VideoDAO {
             throw new Exception("Failed in getting Videos: " + e.getMessage());
         }
     }
-    
+
     public ArrayList<RemotelyAvailableVideo> getAllRAVideos() throws Exception {
         try {
             ArrayList<RemotelyAvailableVideo> allVideos = new ArrayList<RemotelyAvailableVideo>();
             PreparedStatement statement = conn.prepareStatement("SELECT * FROM Video WHERE remoteAvailability=1");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-            	RemotelyAvailableVideo v = generateRAVideo(resultSet);
+                RemotelyAvailableVideo v = generateRAVideo(resultSet);
                 allVideos.add(v);
             }
             resultSet.close();
@@ -116,6 +129,6 @@ public class VideoDAO {
             throw new Exception("Failed in getting RA Videos: " + e.getMessage());
         }
     }
-    
-    
+
+
 }
