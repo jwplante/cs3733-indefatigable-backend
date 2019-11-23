@@ -17,7 +17,8 @@ public class CreatePlaylistHandler implements RequestHandler<CreatePlaylistReque
         CreatePlaylistResponse res;
         PlaylistDAO dao = new PlaylistDAO();
         try{
-            if(dao.createPlaylist(req.getName())){
+            String name = req.getName();
+            if(dao.createPlaylist(name)){
                 res = new CreatePlaylistResponse(200);
             }else{
                 res = new CreatePlaylistResponse(403, "error occurred");
