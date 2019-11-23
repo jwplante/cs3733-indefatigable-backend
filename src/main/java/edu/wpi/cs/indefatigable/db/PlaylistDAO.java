@@ -1,6 +1,7 @@
 package edu.wpi.cs.indefatigable.db;
 
 import edu.wpi.cs.indefatigable.model.Playlist;
+import edu.wpi.cs.indefatigable.model.Video;
 
 import java.nio.charset.Charset;
 import java.sql.PreparedStatement;
@@ -118,6 +119,23 @@ public class PlaylistDAO {
             e.printStackTrace();
             throw new Exception("Failed in getting playlist: " + e.getMessage());
         }
+    }
+    
+    public boolean appendSegment(Video v, Playlist p) {
+    	try {
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO PlaylistVideo(vuid,puid) VALUES (?,?)");
+			ps.setString(1, v.getVuid());
+			ps.setString(2, p.getID());
+			int affected = ps.executeUpdate();
+			ps.close();
+			return affected==1;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	
+    	return false;
     }
 
 }
