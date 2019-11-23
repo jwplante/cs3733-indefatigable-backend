@@ -6,28 +6,48 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
+import com.amazonaws.util.Base64;
 import edu.wpi.cs.indefatigable.http.CreateVideoRequest;
 import edu.wpi.cs.indefatigable.http.CreateVideoResponse;
 
 import java.io.ByteArrayInputStream;
+import java.util.UUID;
 
 public class CreateVideoHandler implements RequestHandler<CreateVideoRequest, CreateVideoResponse> {
 
     LambdaLogger logger;
     private AmazonS3 s3 = null;
+    private final String BUCKET_NAME = "cs3733-indefatigable";
+    private final String VIDEO_PATH = "media/";
 
 
-    private boolean putVideoInS3(String name, String videoFile) throws Exception {
-        try {
-            byte[] contents = videoFile.getBytes();
-            if (logger != null) { logger.log("in createSystemConstant"); }
+    /***
+     * Takes in the name of the video and the video file in base64 encoding,
+     * decodes the string inserts into the S3 bucket. Returns a String containing
+     * the URL of the public S3 bucket.
+     * @param name - Name of the video file
+     * @param videoFile - Contents of the video file
+     * @return (String) URL of the newly created S3 bucket
+     * @throws Exception
+     */
+    private String putVideoInS3(String name, String videoFile) throws Exception {
+            // To avoid duplicates take the name of the videoFile and add a UUID to the end
+            String uniqueFileName = name + UUID.randomUUID().toString();
+
+            // Take the base64 and decode it
+            byte[] contents = Base64.decode(videoFile);
+
+            if (logger != null) {
+                logger.log("in putVideoInS3");
+            }
 
             if (s3 == null) {
                 logger.log("attach to S3 request");
-                s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
+                s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build();
                 logger.log("attach to S3 succeed");
             }
 
@@ -35,19 +55,20 @@ public class CreateVideoHandler implements RequestHandler<CreateVideoRequest, Cr
             ObjectMetadata omd = new ObjectMetadata();
             omd.setContentLength(contents.length);
 
-            PutObjectResult res = s3.putObject(new PutObjectRequest("cs3733wpi", "constants/" + name, bais, omd));
-
+            // Add video to bucket with public read permission
+            PutObjectResult res = s3.putObject(new PutObjectRequest(BUCKET_NAME, VIDEO_PATH + uniqueFileName, bais, omd)
+                    .withCannedAcl(CannedAccessControlList.PublicRead));
             // if we ever get here, then whole thing was stored
-            return true;
-        } catch (Exception e) {
-            logger.log("Unable to store video in S3 bucket!");
-            return false;
-        }
+            return s3.getUrl(BUCKET_NAME, VIDEO_PATH + uniqueFileName).toString();
     }
 
     @Override
     public CreateVideoResponse handleRequest(CreateVideoRequest input, Context context) {
         logger = context.getLogger();
         logger.log("Initializing CreateVideoHandler!");
+
+        try {
+
+        }
     }
 }
