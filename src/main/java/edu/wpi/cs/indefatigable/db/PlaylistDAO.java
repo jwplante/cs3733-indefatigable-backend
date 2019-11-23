@@ -2,16 +2,20 @@ package edu.wpi.cs.indefatigable.db;
 
 import edu.wpi.cs.indefatigable.model.Playlist;
 
+import java.nio.charset.Charset;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.UUID;
 
 public class PlaylistDAO {
     java.sql.Connection conn;
     VideoDAO videoInterface;
 
     public PlaylistDAO() {
-        try  {
+        try {
             conn = DatabaseUtil.connect();
             videoInterface = new VideoDAO(conn);
         } catch (Exception e) {
@@ -23,7 +27,7 @@ public class PlaylistDAO {
         try {
             Playlist playlist = null;
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Playlist WHERE puid=?;");
-            ps.setString(1,  puid);
+            ps.setString(1, puid);
             ResultSet resultSet = ps.executeQuery();
 
             while (resultSet.next()) {
@@ -40,14 +44,33 @@ public class PlaylistDAO {
             throw new Exception("Failed in getting video: " + e.getMessage());
         }
     }
-    
-    public ArrayList<Playlist> getAllPlaylists() throws Exception{
+
+    public boolean createPlaylist(String name) throws Exception {
+        try {
+            if (name == null) {
+                byte[] array = new byte[5]; // length is bounded by 7
+                new Random().nextBytes(array);
+                name = new String(array, Charset.forName("UTF-8"));
+            }
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Playlist(puid, name) VALUES (?,?)");
+            ps.setString(1, String.valueOf(UUID.randomUUID()));
+            ps.setString(2, name);
+            int numAffected = ps.executeUpdate();
+            ps.close();
+            return (numAffected == 1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Failed in creating playlist: " + e.getMessage());
+        }
+    }
+
+    public ArrayList<Playlist> getAllPlaylists() throws Exception {
         try {
             ArrayList<Playlist> playlist = new ArrayList<>();
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Playlist;");
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
-            	String puid = resultSet.getString("puid");
+                String puid = resultSet.getString("puid");
                 playlist.add(generatePlaylist(puid, resultSet));
             }
             resultSet.close();
@@ -60,11 +83,11 @@ public class PlaylistDAO {
     }
     //todo create remaining methods like ConstantsDAO
 
-    private Playlist generatePlaylist(String puid, ResultSet playlist) throws Exception{
+    private Playlist generatePlaylist(String puid, ResultSet playlist) throws Exception {
         try {
             // Goes to the association table
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM PlaylistVideo WHERE puid=?;");
-            ps.setString(1,  puid);
+            ps.setString(1, puid);
             ResultSet resultSet = ps.executeQuery();
             String name = playlist.getString("name");
             Playlist p = new Playlist(puid, name);
