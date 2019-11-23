@@ -48,12 +48,12 @@ public class PlaylistDAO {
             PreparedStatement ps = conn.prepareStatement("INSERT INTO Playlist(puid, name) VALUES (?,?)");
             ps.setString(1, String.valueOf(UUID.randomUUID()));
             ps.setString(2, name);
-            ps.executeUpdate();
+            int numAffected = ps.executeUpdate();
             ps.close();
-            return true;
+            return (numAffected == 1);
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            throw new Exception("Failed in creating playlist: " + e.getMessage());
         }
     }
     
