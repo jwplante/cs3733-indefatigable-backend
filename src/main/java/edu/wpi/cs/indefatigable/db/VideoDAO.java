@@ -83,16 +83,16 @@ public class VideoDAO {
     }
     public ArrayList<Video> getAllVideos() throws Exception {
         try {
-            ArrayList<Video> allVideos = new ArrayList<>();
+            ArrayList<Video> aVideos = new ArrayList<>();
             PreparedStatement statement = conn.prepareStatement("SELECT * FROM Video");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Video v = generateVideo(resultSet);
-                allVideos.add(v);
+                aVideos.add(v);
             }
             resultSet.close();
             statement.close();
-            return allVideos;
+            return aVideos;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Failed in getting Videos: " + e.getMessage());

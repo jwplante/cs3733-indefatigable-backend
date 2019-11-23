@@ -5,6 +5,7 @@ import edu.wpi.cs.indefatigable.model.Video;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PlaylistDAO {
@@ -85,8 +86,18 @@ public class PlaylistDAO {
         }
     }
     
-    public boolean appendSegment(Video v) {
-    	//PreparedStatement ps = conn.prepareStatement("INSERT INTO ");
+    public boolean appendSegment(Video v, Playlist p) {
+    	try {
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO PlaylistVideo(vuid,puid) VALUES (?,?)");
+			ps.setString(1, v.getVuid());
+			ps.setString(2, p.getID());
+			int affected = ps.executeUpdate();
+			ps.close();
+			return affected==1;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	
     	
     	return false;

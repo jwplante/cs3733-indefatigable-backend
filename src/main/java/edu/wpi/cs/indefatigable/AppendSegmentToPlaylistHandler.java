@@ -21,16 +21,22 @@ public class AppendSegmentToPlaylistHandler implements RequestHandler<AppendSegm
 		vDAO = new VideoDAO();
 		AppendSegmentToPlaylistResponse res;
 		logger.log(input.toString());
+		boolean result = false;
 		try {
 			Video v = vDAO.getVideo(input.getVuid());
 			Playlist p = pDAO.getPlaylist(input.getPuid());
+			result = pDAO.appendSegment(v, p);
+			
 		}
 		catch (Exception e) {
 			//uhoh
 			//stinky
 			logger.log(e.toString());
 		}
-		return null;
+		if (result == true) {
+			return new AppendSegmentToPlaylistResponse(200);
+		}
+		else return new AppendSegmentToPlaylistResponse(400);
 	}
 	
 }
