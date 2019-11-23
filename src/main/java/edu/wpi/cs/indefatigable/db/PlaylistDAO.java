@@ -4,7 +4,9 @@ import edu.wpi.cs.indefatigable.model.Playlist;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class PlaylistDAO {
     java.sql.Connection conn;
@@ -38,6 +40,20 @@ public class PlaylistDAO {
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Failed in getting video: " + e.getMessage());
+        }
+    }
+
+    public boolean createPlaylist(String name) throws Exception {
+        try{
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Playlist(puid, name) VALUES (?,?)");
+            ps.setString(1, String.valueOf(UUID.randomUUID()));
+            ps.setString(2, name);
+            ps.executeUpdate();
+            ps.close();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
     
