@@ -11,8 +11,10 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
 import com.amazonaws.util.Base64;
+import edu.wpi.cs.indefatigable.db.VideoDAO;
 import edu.wpi.cs.indefatigable.http.CreateVideoRequest;
 import edu.wpi.cs.indefatigable.http.CreateVideoResponse;
+import edu.wpi.cs.indefatigable.model.Video;
 
 import java.io.ByteArrayInputStream;
 import java.util.UUID;
@@ -21,23 +23,23 @@ public class CreateVideoHandler implements RequestHandler<CreateVideoRequest, Cr
 
     LambdaLogger logger;
     private AmazonS3 s3 = null;
+
+    // Video Upload Settings
     private final String BUCKET_NAME = "cs3733-indefatigable";
     private final String VIDEO_PATH = "media/";
-
+    private final boolean DEFAULT_REMOTE_AVAILABILITY = false;
+    private final boolean DEFAULT_IS_REMOTE = false;
 
     /***
      * Takes in the name of the video and the video file in base64 encoding,
      * decodes the string inserts into the S3 bucket. Returns a String containing
      * the URL of the public S3 bucket.
-     * @param name - Name of the video file
-     * @param videoFile - Contents of the video file
+     * @param name - Name of the video file (unique)
+     * @param videoFile - Contents of the video file in Base64
      * @return (String) URL of the newly created S3 bucket
      * @throws Exception
      */
     private String putVideoInS3(String name, String videoFile) throws Exception {
-            // To avoid duplicates take the name of the videoFile and add a UUID to the end
-            String uniqueFileName = name + UUID.randomUUID().toString();
-
             // Take the base64 and decode it
             byte[] contents = Base64.decode(videoFile);
 
@@ -56,10 +58,10 @@ public class CreateVideoHandler implements RequestHandler<CreateVideoRequest, Cr
             omd.setContentLength(contents.length);
 
             // Add video to bucket with public read permission
-            PutObjectResult res = s3.putObject(new PutObjectRequest(BUCKET_NAME, VIDEO_PATH + uniqueFileName, bais, omd)
+            PutObjectResult res = s3.putObject(new PutObjectRequest(BUCKET_NAME, VIDEO_PATH + name, bais, omd)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
             // if we ever get here, then whole thing was stored
-            return s3.getUrl(BUCKET_NAME, VIDEO_PATH + uniqueFileName).toString();
+            return s3.getUrl(BUCKET_NAME, VIDEO_PATH + name).toString();
     }
 
     @Override
@@ -68,7 +70,29 @@ public class CreateVideoHandler implements RequestHandler<CreateVideoRequest, Cr
         logger.log("Initializing CreateVideoHandler!");
 
         try {
+            // To avoid duplicates take the name of the videoFile and add a UUID to the end
+            String uniqueFileName = input.getTitle() + UUID.randomUUID().toString();
+            // Upload to S3 BUCKET WOOOOO!
+            String url = putVideoInS3(uniqueFileName, input.getVideo());
+            // Put everything into a temporary video object
+            Video tempVideoHolder = new Video(uniqueFileName,
+                    url,
+                    DEFAULT_REMOTE_AVAILABILITY,
+                    DEFAULT_IS_REMOTE,
+                    input.getCharacter(),
+                    input.getTranscript(),
+                    input.getTitle());
 
+            // Insert the video into the database
+            VideoDAO dao = new VideoDAO();
+            dao.addVideo(tempVideoHolder);
+
+            return new CreateVideoResponse(200);
+        } catch (Exception e) {
+            // FAIL
+            e.printStackTrace();
+            logger.log("handleRequest: Upload failed!");
+            return new CreateVideoResponse();
         }
     }
 }
