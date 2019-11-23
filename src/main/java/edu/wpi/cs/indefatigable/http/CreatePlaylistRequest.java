@@ -7,6 +7,8 @@ public class CreatePlaylistRequest {
         this.name = name;
     }
 
+    public CreatePlaylistRequest(){}
+
     public String getName(){
         return this.name;
     }
