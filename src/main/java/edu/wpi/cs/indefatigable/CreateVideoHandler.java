@@ -47,6 +47,7 @@ public class CreateVideoHandler implements RequestHandler<CreateVideoRequest, Cr
 
     @Override
     public CreateVideoResponse handleRequest(CreateVideoRequest input, Context context) {
-        return null;
+        logger = context.getLogger();
+        logger.log("Initializing CreateVideoHandler!");
     }
 }
