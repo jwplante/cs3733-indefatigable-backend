@@ -74,6 +74,19 @@ public class VideoDAO {
         }
     }
 
+    public boolean unmarkVideoAsRemote(String vuid) throws Exception {
+        try {
+            PreparedStatement ps = conn.prepareStatement("UPDATE Video SET remoteAvailability=0 WHERE vuid=?");
+            ps.setString(1, vuid);
+            int numAffected = ps.executeUpdate();
+            ps.close();
+            return (numAffected == 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Failed in unmarking video: " + e.getMessage());
+        }
+    }
+
     private Video generateVideo(ResultSet resultSet) throws SQLException {
         String vuid = resultSet.getString("vuid");
         String url = resultSet.getString("url");
