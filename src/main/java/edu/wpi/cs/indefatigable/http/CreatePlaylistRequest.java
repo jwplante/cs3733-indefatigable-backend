@@ -1,7 +1,7 @@
 package edu.wpi.cs.indefatigable.http;
 
 public class CreatePlaylistRequest {
-    String name;
+    public String name;
 
     public CreatePlaylistRequest(String name){
         this.name = name;
