@@ -25,6 +25,26 @@ public class VideoDAO {
         this.conn = conn;
     }
 
+    public boolean addVideo(String vuid, String url, boolean remoteAvailability, boolean isRemote, String character, String transcript, String title) {
+        try {
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Video(?,?,?,?,?,?,?)");
+            ps.setString(1, vuid);
+            ps.setString(2, url);
+            ps.setBoolean(3, remoteAvailability);
+            ps.setBoolean(4, isRemote);
+            ps.setString(5, character);
+            ps.setString(6, transcript);
+            ps.setString(7, title);
+            ResultSet resultSet = ps.executeQuery();
+            resultSet.close();
+            ps.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public Video getVideo(String vuid) throws Exception {
         try {
             Video video = null;
