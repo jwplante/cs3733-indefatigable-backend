@@ -45,6 +45,10 @@ public class VideoDAO {
         }
     }
 
+    public boolean addVideo(Video v) {
+        return addVideo(v.getVuid(), v.getUrl(), v.isRemoteAvailability(), v.isRemote(), v.getCharacter(), v.getTranscript(), v.getTitle());
+    }
+
     public Video getVideo(String vuid) throws Exception {
         try {
             Video video = null;

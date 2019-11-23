@@ -1,6 +1,7 @@
 package edu.wpi.cs.indefatigable.model;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class Video {
     public final String vuid;
@@ -13,6 +14,16 @@ public class Video {
 
     public Video(String vuid, String url, boolean remoteAvailability, boolean isRemote, String character, String transcript, String title) {
         this.vuid = vuid;
+        this.url = url;
+        this.remoteAvailability = remoteAvailability;
+        this.isRemote = isRemote;
+        this.character = character;
+        this.transcript = transcript;
+        this.title = title;
+    }
+
+    public Video(String url, boolean remoteAvailability, boolean isRemote, String character, String transcript, String title) {
+        this.vuid = UUID.randomUUID().toString();
         this.url = url;
         this.remoteAvailability = remoteAvailability;
         this.isRemote = isRemote;
