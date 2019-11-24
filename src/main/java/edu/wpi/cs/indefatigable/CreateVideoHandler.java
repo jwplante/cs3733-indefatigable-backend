@@ -58,10 +58,10 @@ public class CreateVideoHandler implements RequestHandler<CreateVideoRequest, Cr
             omd.setContentLength(contents.length);
 
             // Add video to bucket with public read permission
-            PutObjectResult res = s3.putObject(new PutObjectRequest(BUCKET_NAME, VIDEO_PATH + name, bais, omd)
+            PutObjectResult res = s3.putObject(new PutObjectRequest(BUCKET_NAME, VIDEO_PATH + name + ".ogg", bais, omd)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
             // if we ever get here, then whole thing was stored
-            return s3.getUrl(BUCKET_NAME, VIDEO_PATH + name).toString();
+            return s3.getUrl(BUCKET_NAME, VIDEO_PATH + name + ".ogg").toString();
     }
 
     @Override
@@ -70,12 +70,13 @@ public class CreateVideoHandler implements RequestHandler<CreateVideoRequest, Cr
         logger.log("Initializing CreateVideoHandler!");
 
         try {
+        	String randomUID = UUID.randomUUID().toString();
             // To avoid duplicates take the name of the videoFile and add a UUID to the end
-            String uniqueFileName = input.getTitle() + UUID.randomUUID().toString();
+            String uniqueFileName = input.getTitle() + "-" + randomUID;
             // Upload to S3 BUCKET WOOOOO!
             String url = putVideoInS3(uniqueFileName, input.getVideo());
             // Put everything into a temporary video object
-            Video tempVideoHolder = new Video(uniqueFileName,
+            Video tempVideoHolder = new Video(randomUID,
                     url,
                     DEFAULT_REMOTE_AVAILABILITY,
                     DEFAULT_IS_REMOTE,
