@@ -12,7 +12,7 @@ import edu.wpi.cs.indefatigable.http.DeleteVideoResponse;
 public class DeleteSegmentHandlerTest extends LambdaTest {
 
     @Test
-    public void testCreateAndDeleteConstant() {
+    public void testCreateAndDeleteVideo() {
         // now delete
         DeleteVideoRequest dvr = new DeleteVideoRequest("uhoh");
         DeleteVideoResponse d_resp = new DeleteVideoHandler().handleRequest(dvr, createContext("delete"));
