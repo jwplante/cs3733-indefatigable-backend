@@ -49,4 +49,19 @@ public class RemoteSitesDAO {
     	}
     }
     
+    public boolean removeRemoteSite(String url) throws Exception{
+    	try {
+    		PreparedStatement ps = conn.prepareStatement("DELETE FROM RemoteApi WHERE url=?");
+    		ps.setString(1, url);
+    		int affected = ps.executeUpdate();
+    		ps.close();
+    		return (affected==1);
+    	}
+    	catch(Exception e) {
+            e.printStackTrace();
+            throw new Exception("Could not remove site: "+e.getMessage());
+    	}
+    	
+    }
+    
 }
