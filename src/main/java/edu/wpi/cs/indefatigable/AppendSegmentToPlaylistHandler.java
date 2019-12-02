@@ -19,7 +19,6 @@ public class AppendSegmentToPlaylistHandler implements RequestHandler<AppendSegm
 		logger.log("Appending segment "+ input.getVuid()+" to playlist "+input.getPuid());
 		pDAO = new PlaylistDAO();
 		vDAO = new VideoDAO();
-		AppendSegmentToPlaylistResponse res;
 		logger.log(input.toString());
 		boolean result = false;
 		try {
@@ -29,8 +28,7 @@ public class AppendSegmentToPlaylistHandler implements RequestHandler<AppendSegm
 			
 		}
 		catch (Exception e) {
-			//uhoh
-			//stinky
+			//something has gone wrong in accessing the videos or playlists.
 			logger.log(e.toString());
 		}
 		if (result == true) {

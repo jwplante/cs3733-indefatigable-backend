@@ -20,9 +20,6 @@ public class DeleteVideoHandler implements RequestHandler<DeleteVideoRequest,Del
 		logger.log(req.toString());
 
 		VideoDAO dao = new VideoDAO();
-
-		// See how awkward it is to call delete with an object, when you only
-		// have one part of its information?
 		try {
 			if (dao.deleteVideo(req.vuid)) {
 				response = new DeleteVideoResponse(req.vuid, 200);
