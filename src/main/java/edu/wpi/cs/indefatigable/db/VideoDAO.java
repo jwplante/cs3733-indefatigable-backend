@@ -109,34 +109,34 @@ public class VideoDAO {
         String transcript = resultSet.getString("transcript");
         return new RemotelyAvailableVideo(url, character, transcript);
     }
-    
+
     public ArrayList<Video> queryAllVideos(String character, String transcript) throws Exception {
         try {
             ArrayList<Video> aVideos = new ArrayList<>();
             PreparedStatement statement;
-            
+
             // If character is blank
             if (transcript.contentEquals("")) {
-            	statement = conn.prepareStatement("SELECT * FROM Video WHERE character LIKE ?;");
-            	statement.setString(1, character);
+            	statement = conn.prepareStatement("SELECT * FROM Video WHERE `character` LIKE ?;");
+            	statement.setString(1, "%"+character+"%");
             // If transcript is blank
             } else if (character.contentEquals("")) {
             	statement = conn.prepareStatement("SELECT * FROM Video WHERE transcript LIKE ?;");
-            	statement.setString(1, transcript);
+            	statement.setString(1, "%"+transcript+"%");
             // If both are not blank
             } else {
-            	statement = conn.prepareStatement("SELECT * FROM Video WHERE transcript LIKE ? AND character LIKE ?;");
-            	statement.setString(1, transcript);
-            	statement.setString(2, character);
+            	statement = conn.prepareStatement("SELECT * FROM Video WHERE transcript LIKE ? AND `character` LIKE ?;");
+            	statement.setString(1, "%"+transcript+"%");
+            	statement.setString(2, "%"+character+"%");
             }
-            
+
             ResultSet resultSet = statement.executeQuery();
-            
+
             while (resultSet.next()) {
                 Video v = generateVideo(resultSet);
                 aVideos.add(v);
             }
-            
+
             resultSet.close();
             statement.close();
             return aVideos;
@@ -145,8 +145,8 @@ public class VideoDAO {
             throw new Exception("Failed in getting Videos: " + e.getMessage());
         }
     }
-    
-    
+
+
 
     public ArrayList<Video> getAllVideos() throws Exception {
         try {

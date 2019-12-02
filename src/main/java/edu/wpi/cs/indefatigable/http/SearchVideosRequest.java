@@ -6,6 +6,10 @@ public class SearchVideosRequest {
 	public String character;
 	
 	// Constructors
+
+	public SearchVideosRequest() {
+	}
+
 	public SearchVideosRequest(String transcript, String character) {
 		this.transcript = transcript;
 		this.character = character;
