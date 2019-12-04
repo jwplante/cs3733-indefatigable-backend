@@ -88,7 +88,7 @@ public class CreateVideoHandler implements RequestHandler<CreateVideoRequest, Cr
             VideoDAO dao = new VideoDAO();
             dao.addVideo(tempVideoHolder);
 
-            return new CreateVideoResponse(200);
+            return new CreateVideoResponse(200,randomUID);
         } catch (Exception e) {
             // FAIL
             e.printStackTrace();

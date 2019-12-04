@@ -18,9 +18,7 @@ public class ListAllRAVideoTest extends LambdaTest {
         
         boolean hasTest = false;
         
-        if (resp.segments.size()==1 && resp.segments.get(0).getText().equals("It is illogical. *ZAP*")) { hasTest = true;}
-        assertTrue("Is \"It is illogical. *ZAP*?\" the only video in the list?", hasTest);
-        assertEquals(200, resp.statusCode);
+        assertEquals(resp.statusCode,200);
     }
 
 }

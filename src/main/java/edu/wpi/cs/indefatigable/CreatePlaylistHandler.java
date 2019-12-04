@@ -19,7 +19,7 @@ public class CreatePlaylistHandler implements RequestHandler<CreatePlaylistReque
         try{
             String name = req.getName();
             String uuid;
-            if((uuid = dao.createPlaylist(name)) != null){
+            if((uuid = dao.createPlaylist(name)) != null) {
                 res = new CreatePlaylistResponse(200,uuid);
             }else{
                 res = new CreatePlaylistResponse(403, "error occurred", uuid);
