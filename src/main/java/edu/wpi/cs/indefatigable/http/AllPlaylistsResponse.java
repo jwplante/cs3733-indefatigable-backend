@@ -2,7 +2,6 @@ package edu.wpi.cs.indefatigable.http;
 
 import java.util.ArrayList;
 
-import edu.wpi.cs.indefatigable.db.PlaylistDAO;
 import edu.wpi.cs.indefatigable.model.Playlist;
 
 public class AllPlaylistsResponse {

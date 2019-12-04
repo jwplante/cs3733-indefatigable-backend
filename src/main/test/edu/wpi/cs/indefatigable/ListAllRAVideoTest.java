@@ -6,10 +6,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import edu.wpi.cs.indefatigable.http.AllPlaylistsResponse;
 import edu.wpi.cs.indefatigable.http.AllRemotelyAvailableVideosResponse;
-import edu.wpi.cs.indefatigable.model.Playlist;
-import edu.wpi.cs.indefatigable.model.RemotelyAvailableVideo;
 
 public class ListAllRAVideoTest extends LambdaTest {
 	
