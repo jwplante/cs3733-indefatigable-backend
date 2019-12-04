@@ -46,7 +46,7 @@ public class PlaylistDAO {
         }
     }
 
-    public boolean createPlaylist(String name) throws Exception {
+    public String createPlaylist(String name) throws Exception {
         try {
             if (name == null) {
                 byte[] array = new byte[5]; // length is bounded by 7
@@ -54,11 +54,13 @@ public class PlaylistDAO {
                 name = new String(array, Charset.forName("UTF-8"));
             }
             PreparedStatement ps = conn.prepareStatement("INSERT INTO Playlist(puid, name) VALUES (?,?)");
-            ps.setString(1, String.valueOf(UUID.randomUUID()));
+            String uuid = String.valueOf(UUID.randomUUID());
+            ps.setString(1, uuid);
             ps.setString(2, name);
             int numAffected = ps.executeUpdate();
             ps.close();
-            return (numAffected == 1);
+            if(numAffected == 1) return (uuid);
+            else throw new Exception("Failed in creating playlist");
         } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Failed in creating playlist: " + e.getMessage());
