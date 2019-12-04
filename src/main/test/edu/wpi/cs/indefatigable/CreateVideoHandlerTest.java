@@ -29,6 +29,6 @@ public class CreateVideoHandlerTest extends LambdaTest {
         DeleteVideoRequest req2 = new DeleteVideoRequest(res.vuid);
         DeleteVideoResponse res2 = new DeleteVideoHandler().handleRequest(req2, createContext("delete"));
         Assert.assertEquals(200, res2.statusCode); //it was deleted
-    }
-    */
+   */ }
+    
 }
