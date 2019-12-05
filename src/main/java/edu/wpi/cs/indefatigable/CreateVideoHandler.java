@@ -25,8 +25,8 @@ public class CreateVideoHandler implements RequestHandler<CreateVideoRequest, Cr
     private AmazonS3 s3 = null;
 
     // Video Upload Settings
-    private final String BUCKET_NAME = "cs3733-indefatigable/media/";
-    private final String VIDEO_PATH = "";
+    private final String BUCKET_NAME = "cs3733-indefatigable";
+    private final String VIDEO_PATH = "/media/";
     private final boolean DEFAULT_REMOTE_AVAILABILITY = false;
     private final boolean DEFAULT_IS_REMOTE = false;
 
@@ -58,8 +58,8 @@ public class CreateVideoHandler implements RequestHandler<CreateVideoRequest, Cr
             omd.setContentLength(contents.length);
 
             // Add video to bucket with public read permission
-            logger.log(VIDEO_PATH + name + ".ogg");
-            PutObjectResult res = s3.putObject(new PutObjectRequest(BUCKET_NAME, name + ".ogg", bais, omd)
+            logger.log(VIDEO_PATH + name + ".ogg"); 
+            PutObjectResult res = s3.putObject(new PutObjectRequest(BUCKET_NAME,VIDEO_PATH+ name + ".ogg", bais, omd)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
             // if we ever get here, then whole thing was stored
             return s3.getUrl(BUCKET_NAME, VIDEO_PATH + name + ".ogg").toString();

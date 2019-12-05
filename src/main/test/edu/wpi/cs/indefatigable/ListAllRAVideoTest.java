@@ -13,11 +13,7 @@ public class ListAllRAVideoTest extends LambdaTest {
     @Test
     public void testGetList() throws IOException {
     	ListAllRemotelyAvailableVideosHandler handler = new ListAllRemotelyAvailableVideosHandler();
-
         AllRemotelyAvailableVideosResponse resp = handler.handleRequest(null, createContext("list"));
-        
-        boolean hasTest = false;
-        
         assertEquals(resp.statusCode,200);
     }
 
