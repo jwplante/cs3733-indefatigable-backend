@@ -31,6 +31,11 @@ public class CreatePlaylistHandlerTest extends LambdaTest {
         DeletePlaylistRequest req2 = new DeletePlaylistRequest(res.puid);
         DeletePlaylistResponse res2 = new DeletePlaylistHandler().handleRequest(req2, createContext("delete"));
         Assert.assertEquals(200, res2.statusCode); //it was deleted
+        System.out.println(res2.toString());
+        DeletePlaylistRequest req3 = new DeletePlaylistRequest(res.puid);
+        DeletePlaylistResponse res3 = new DeletePlaylistHandler().handleRequest(req3, createContext("delete"));
+        Assert.assertEquals(422, res3.statusCode); //should fail
+        System.out.println(res3.toString());
     }
     
 }

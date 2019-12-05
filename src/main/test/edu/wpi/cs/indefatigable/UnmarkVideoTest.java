@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import edu.wpi.cs.indefatigable.http.MarkVideoRequest;
-import edu.wpi.cs.indefatigable.http.MarkVideoResponse;
 import edu.wpi.cs.indefatigable.http.UnmarkVideoRequest;
 import edu.wpi.cs.indefatigable.http.UnmarkVideoResponse;
 
@@ -22,5 +20,11 @@ public class UnmarkVideoTest extends LambdaTest {
     	UnmarkVideoRequest req = new UnmarkVideoRequest("1affc384-cb8b-4682-b3da-c22be13617ee");
     	UnmarkVideoResponse res = new UnmarkVideoHandler().handleRequest(req, createContext("unmark"));
     	assertEquals(res.statusCode, 200);
+    	System.out.println(res.toString());
+    	//uhoh time
+    	UnmarkVideoRequest req2 = new UnmarkVideoRequest("hehe haha hoohoo");
+    	UnmarkVideoResponse res2 = new UnmarkVideoHandler().handleRequest(req2, createContext("unmark"));
+    	assertEquals(res2.statusCode, 422); 
+    	System.out.println(res2.toString());
     }
 }
