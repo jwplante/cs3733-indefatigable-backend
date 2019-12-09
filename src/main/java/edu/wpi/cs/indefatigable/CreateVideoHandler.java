@@ -97,7 +97,7 @@ public class CreateVideoHandler implements RequestHandler<CreateVideoRequest, Cr
             // FAIL
             e.printStackTrace();
             logger.log("handleRequest: Upload failed!");
-            return new CreateVideoResponse(403);
+            return new CreateVideoResponse(403,e.getMessage());
         }
     }
 }
