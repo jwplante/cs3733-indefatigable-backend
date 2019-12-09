@@ -139,5 +139,23 @@ public class PlaylistDAO {
     	
     	return false;
     }
+    
+    public boolean removeSegment(String vuid, String puid) {
+    	try {
+    		PreparedStatement ps = conn.prepareStatement("DELETE FROM PlaylistVideo WHERE (vuid,puid)=(?,?)");
+    		ps.setString(1, vuid);
+    		ps.setString(2, puid);
+    		int affected = ps.executeUpdate();
+    		ps.close();
+    		return affected == 1;
+    		
+    				
+    	}
+    	catch(SQLException e) {
+    		e.printStackTrace();
+    	}
+    	return false;
+    }
 
 }
+

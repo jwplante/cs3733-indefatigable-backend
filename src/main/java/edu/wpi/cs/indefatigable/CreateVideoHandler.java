@@ -12,6 +12,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
 import com.amazonaws.util.Base64;
 import edu.wpi.cs.indefatigable.db.VideoDAO;
+import edu.wpi.cs.indefatigable.http.CreatePlaylistResponse;
 import edu.wpi.cs.indefatigable.http.CreateVideoRequest;
 import edu.wpi.cs.indefatigable.http.CreateVideoResponse;
 import edu.wpi.cs.indefatigable.model.Video;
@@ -19,7 +20,7 @@ import edu.wpi.cs.indefatigable.model.Video;
 import java.io.ByteArrayInputStream;
 import java.util.UUID;
 
-public class CreateVideoHandler implements RequestHandler<CreateVideoRequest, CreateVideoResponse> {
+public class CreateVideoHandler implements RequestHandler<CreateVideoRequest, CreateVideoResponse> {  // HACK TO TRY OUT DIFF RESP
 
     LambdaLogger logger;
     private AmazonS3 s3 = null;
@@ -86,15 +87,17 @@ public class CreateVideoHandler implements RequestHandler<CreateVideoRequest, Cr
                     input.getTitle());
 
             // Insert the video into the database
+            logger.log("upload complete:" + url);
+
             VideoDAO dao = new VideoDAO();
             dao.addVideo(tempVideoHolder);
-
+            logger.log("db updated");
             return new CreateVideoResponse(200,randomUID);
         } catch (Exception e) {
             // FAIL
             e.printStackTrace();
             logger.log("handleRequest: Upload failed!");
-            return new CreateVideoResponse();
+            return new CreateVideoResponse(403);
         }
     }
 }
