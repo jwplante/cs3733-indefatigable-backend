@@ -5,7 +5,6 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import edu.wpi.cs.indefatigable.db.VideoDAO;
 import edu.wpi.cs.indefatigable.http.AllRemotelyAvailableVideosResponse;
 import edu.wpi.cs.indefatigable.model.RemotelyAvailableVideo;
-import edu.wpi.cs.indefatigable.model.Video;
 import java.util.ArrayList;
 
 public class ListAllRemotelyAvailableVideosHandler implements RequestHandler<Object, AllRemotelyAvailableVideosResponse> {

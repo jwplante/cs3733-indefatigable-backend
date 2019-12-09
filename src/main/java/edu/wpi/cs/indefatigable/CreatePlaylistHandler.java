@@ -18,14 +18,15 @@ public class CreatePlaylistHandler implements RequestHandler<CreatePlaylistReque
         PlaylistDAO dao = new PlaylistDAO();
         try{
             String name = req.getName();
-            if(dao.createPlaylist(name)){
-                res = new CreatePlaylistResponse(200);
+            String uuid;
+            if((uuid = dao.createPlaylist(name)) != null) {
+                res = new CreatePlaylistResponse(200,uuid);
             }else{
-                res = new CreatePlaylistResponse(403, "error occurred");
+                res = new CreatePlaylistResponse(403, "error occurred", uuid);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            res = new CreatePlaylistResponse(403, "error occurred");
+            res = new CreatePlaylistResponse(403, "error occurred","");
         }
         return res;
     }

@@ -1,8 +1,6 @@
 package edu.wpi.cs.indefatigable.http;
 
 import edu.wpi.cs.indefatigable.model.RemotelyAvailableVideo;
-import edu.wpi.cs.indefatigable.model.Video;
-
 import java.util.ArrayList;
 import java.util.List;
 
