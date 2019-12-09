@@ -23,12 +23,13 @@ public class CreateVideoRequest {
         this.remoteApiID = DEFAULT_REMOTE_API_ID;
     }
     
-    public CreateVideoRequest(String title, String transcript, String character, String video, boolean isRemote, String remoteID) {
+    public CreateVideoRequest(String title, String transcript, String character, String video, boolean isRemote, String remoteApiID) {
         this.title = title;
         this.transcript = transcript;
         this.character = character;
         this.video = video;
         this.isRemote = isRemote;
+        this.remoteApiID = remoteApiID;
     }
 
     public String getTitle() {
