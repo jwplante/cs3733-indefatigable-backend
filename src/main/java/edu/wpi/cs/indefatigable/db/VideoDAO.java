@@ -29,9 +29,9 @@ public class VideoDAO {
         this.conn = conn;
     }
 
-    public boolean addVideo(String vuid, String url, boolean remoteAvailability, boolean isRemote, String character, String transcript, String title) {
+    public boolean addVideo(String vuid, String url, boolean remoteAvailability, boolean isRemote, String character, String transcript, String title, String remoteApiID) {
         try {
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO Video VALUES (?,?,?,?,?,?,?);");
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Video VALUES (?,?,?,?,?,?,?,?);");
             ps.setString(1, vuid);
             ps.setString(2, url);
             ps.setBoolean(3, remoteAvailability);
@@ -39,6 +39,7 @@ public class VideoDAO {
             ps.setString(5, character);
             ps.setString(6, transcript);
             ps.setString(7, title);
+            ps.setString(8, remoteApiID);
             ps.executeUpdate();
             ps.close();
             return true;
@@ -49,7 +50,7 @@ public class VideoDAO {
     }
 
     public boolean addVideo(Video v) {
-        return addVideo(v.getVuid(), v.getUrl(), v.isRemoteAvailability(), v.isRemote(), v.getCharacter(), v.getTranscript(), v.getTitle());
+        return addVideo(v.getVuid(), v.getUrl(), v.isRemoteAvailability(), v.isRemote(), v.getCharacter(), v.getTranscript(), v.getTitle(), v.getRemoteID());
     }
 
     public Video getVideo(String vuid) throws Exception {
@@ -62,6 +63,7 @@ public class VideoDAO {
             while (resultSet.next()) {
                 video = generateVideo(resultSet);
             }
+            
             resultSet.close();
             ps.close();
 

@@ -29,7 +29,6 @@ public class CreateVideoHandler implements RequestHandler<CreateVideoRequest, Cr
     private final String BUCKET_NAME = "cs3733-indefatigable";
     private final String VIDEO_PATH = "media/";
     private final boolean DEFAULT_REMOTE_AVAILABILITY = false;
-    private final boolean DEFAULT_IS_REMOTE = false;
 
     /***
      * Takes in the name of the video and the video file in base64 encoding,
@@ -80,10 +79,11 @@ public class CreateVideoHandler implements RequestHandler<CreateVideoRequest, Cr
             Video tempVideoHolder = new Video(randomUID,
                     url,
                     DEFAULT_REMOTE_AVAILABILITY,
-                    DEFAULT_IS_REMOTE,
+                    input.getIsRemote(),
                     input.getCharacter(),
                     input.getTranscript(),
-                    input.getTitle());
+                    input.getTitle(),
+                    input.getRemoteID());
 
             // Insert the video into the database
             logger.log("upload complete:" + url);
