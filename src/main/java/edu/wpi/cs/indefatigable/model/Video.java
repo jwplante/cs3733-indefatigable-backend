@@ -11,15 +11,28 @@ public class Video {
     public final String character;
     public final String transcript;
     public final String title;
+    public final String remoteApiID; 
 
-    public Video(String vuid, String url, boolean remoteAvailability, boolean isRemote, String character, String transcript, String title) {
-        this.vuid = vuid;
+    public Video(String vuid, String url, boolean remoteAvailability, boolean isRemote, String character, String transcript, String title, String remoteID) { 
+    	this.vuid = vuid;
         this.url = url;
         this.remoteAvailability = remoteAvailability;
         this.isRemote = isRemote;
         this.character = character;
         this.transcript = transcript;
         this.title = title;
+        this.remoteApiID = remoteID;
+    }
+    
+    public Video(String vuid, String url, boolean remoteAvailability, boolean isRemote, String character, String transcript, String title) { 
+    	this.vuid = vuid;
+        this.url = url;
+        this.remoteAvailability = remoteAvailability;
+        this.isRemote = isRemote;
+        this.character = character;
+        this.transcript = transcript;
+        this.title = title;
+        this.remoteApiID = "";
     }
 
     public Video(String url, boolean remoteAvailability, boolean isRemote, String character, String transcript, String title) {
@@ -30,6 +43,7 @@ public class Video {
         this.character = character;
         this.transcript = transcript;
         this.title = title;
+        this.remoteApiID = "";
     }
 
     public String getVuid() {
@@ -59,6 +73,10 @@ public class Video {
     public String getTitle() {
         return title;
     }
+    
+    public String getRemoteID() {
+    	return remoteApiID;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -71,11 +89,12 @@ public class Video {
                 Objects.equals(url, video.url) &&
                 Objects.equals(character, video.character) &&
                 Objects.equals(transcript, video.transcript) &&
-                Objects.equals(title, video.title);
+                Objects.equals(title, video.title) &&
+                Objects.equals(remoteApiID, video.remoteApiID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(vuid, url, remoteAvailability, isRemote, character, transcript, title);
+        return Objects.hash(vuid, url, remoteAvailability, isRemote, character, transcript, title, remoteApiID);
     }
 }
