@@ -8,25 +8,22 @@ import edu.wpi.cs.indefatigable.db.RemoteSitesDAO;
 import edu.wpi.cs.indefatigable.http.RegisterRemoteSiteRequest;
 import edu.wpi.cs.indefatigable.http.RegisterRemoteSiteResponse;
 
-public class RegisterRemoteSiteHandler implements RequestHandler<RegisterRemoteSiteRequest, RegisterRemoteSiteResponse>{
-	public LambdaLogger log = null;
-	@Override
-	public RegisterRemoteSiteResponse handleRequest(RegisterRemoteSiteRequest input, Context context) {
-		log = context.getLogger();
-		log.log("Registering Remote Site");
-		RemoteSitesDAO rsd= new RemoteSitesDAO();
-		try{
-			boolean result = rsd.addRemoteSite(input.url);
-			if(result) {
-				return new RegisterRemoteSiteResponse(200);
-			}
-			else return new RegisterRemoteSiteResponse(400,"Adding failed");
-		}
-		catch(Exception e) {
-			log.log(e.getMessage());
-			return new RegisterRemoteSiteResponse(400, e.getMessage());
-		}
-	}
-	
-	
+public class RegisterRemoteSiteHandler implements RequestHandler<RegisterRemoteSiteRequest, RegisterRemoteSiteResponse> {
+    public LambdaLogger log = null;
+
+    @Override
+    public RegisterRemoteSiteResponse handleRequest(RegisterRemoteSiteRequest input, Context context) {
+        log = context.getLogger();
+        log.log("Registering Remote Site");
+        RemoteSitesDAO rsd = new RemoteSitesDAO();
+        try {
+            String uid = rsd.addRemoteSite(input.url);
+            if (uid != null) {
+                return new RegisterRemoteSiteResponse(200, uid);
+            } else return new RegisterRemoteSiteResponse(400, "Adding failed", "");
+        } catch (Exception e) {
+            log.log(e.getMessage());
+            return new RegisterRemoteSiteResponse(400, e.getMessage());
+        }
+    }
 }
