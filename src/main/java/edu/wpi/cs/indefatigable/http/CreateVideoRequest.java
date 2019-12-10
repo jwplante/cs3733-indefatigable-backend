@@ -10,7 +10,7 @@ public class CreateVideoRequest {
     public String remoteApiID;
     
     private static final boolean DEFAULT_IS_REMOTE = false;
-    private static final String DEFAULT_REMOTE_API_ID = "";
+    private static final String DEFAULT_REMOTE_API_ID = null;
 
     // Constructors
     public CreateVideoRequest() {}
