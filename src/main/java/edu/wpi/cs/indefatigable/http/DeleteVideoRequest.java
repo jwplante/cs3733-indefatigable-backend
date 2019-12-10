@@ -11,8 +11,7 @@ public class DeleteVideoRequest {
 		this.vuid = n;
 	}
 
-	public DeleteVideoRequest() {
-		
+	public DeleteVideoRequest() {	
 	}
 	
 	public String toString() {

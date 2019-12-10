@@ -27,9 +27,8 @@ public class CreateVideoHandler implements RequestHandler<CreateVideoRequest, Cr
 
     // Video Upload Settings
     private final String BUCKET_NAME = "cs3733-indefatigable";
-    private final String VIDEO_PATH = "media/";
+    private final String VIDEO_PATH = "/media/";
     private final boolean DEFAULT_REMOTE_AVAILABILITY = false;
-    private final boolean DEFAULT_IS_REMOTE = false;
 
     /***
      * Takes in the name of the video and the video file in base64 encoding,
@@ -59,7 +58,8 @@ public class CreateVideoHandler implements RequestHandler<CreateVideoRequest, Cr
             omd.setContentLength(contents.length);
 
             // Add video to bucket with public read permission
-            PutObjectResult res = s3.putObject(new PutObjectRequest(BUCKET_NAME, VIDEO_PATH + name + ".ogg", bais, omd)
+            logger.log(VIDEO_PATH + name + ".ogg"); 
+            PutObjectResult res = s3.putObject(new PutObjectRequest(BUCKET_NAME,VIDEO_PATH+ name + ".ogg", bais, omd)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
             // if we ever get here, then whole thing was stored
             return s3.getUrl(BUCKET_NAME, VIDEO_PATH + name + ".ogg").toString();
@@ -80,24 +80,24 @@ public class CreateVideoHandler implements RequestHandler<CreateVideoRequest, Cr
             Video tempVideoHolder = new Video(randomUID,
                     url,
                     DEFAULT_REMOTE_AVAILABILITY,
-                    DEFAULT_IS_REMOTE,
+                    input.getIsRemote(),
                     input.getCharacter(),
                     input.getTranscript(),
-                    input.getTitle());
+                    input.getTitle(),
+                    input.getRemoteID());
 
             // Insert the video into the database
             logger.log("upload complete:" + url);
 
             VideoDAO dao = new VideoDAO();
             dao.addVideo(tempVideoHolder);
-
             logger.log("db updated");
-            return new CreateVideoResponse(200);
+            return new CreateVideoResponse(200,randomUID);
         } catch (Exception e) {
             // FAIL
             e.printStackTrace();
             logger.log("handleRequest: Upload failed!");
-            return new CreateVideoResponse(403);
+            return new CreateVideoResponse(403,e.getMessage());
         }
     }
 }

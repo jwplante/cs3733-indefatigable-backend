@@ -5,8 +5,6 @@ import org.junit.Test;
 
 import edu.wpi.cs.indefatigable.http.AppendSegmentToPlaylistRequest;
 import edu.wpi.cs.indefatigable.http.AppendSegmentToPlaylistResponse;
-import edu.wpi.cs.indefatigable.http.DeleteVideoRequest;
-import edu.wpi.cs.indefatigable.http.DeleteVideoResponse;
 
 /**
  * A simple test harness for locally invoking your Lambda function handler.

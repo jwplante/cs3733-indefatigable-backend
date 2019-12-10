@@ -1,7 +1,6 @@
 package edu.wpi.cs.indefatigable.model;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Objects;
 import java.util.UUID;
 
