@@ -2,35 +2,19 @@ package edu.wpi.cs.indefatigable.http;
 
 public class RegisterVideoRequest {
 
-    public String title;
     public String transcript;
     public String character;
-    public boolean isRemote;
+    public String url;
     public String remoteApiID;
     
-    private static final boolean DEFAULT_IS_REMOTE = false;
-    private static final String DEFAULT_REMOTE_API_ID = "";
-
     // Constructors
     public RegisterVideoRequest() {}
-    public RegisterVideoRequest(String title, String transcript, String character) {
-        this.title = title;
-        this.transcript = transcript;
-        this.character = character;
-        this.isRemote = DEFAULT_IS_REMOTE;
-        this.remoteApiID = DEFAULT_REMOTE_API_ID;
-    }
     
-    public RegisterVideoRequest(String title, String transcript, String character, boolean isRemote, String remoteApiID) {
-        this.title = title;
+    public RegisterVideoRequest(String title, String transcript, String character, String url, boolean isRemote, String remoteApiID) {
         this.transcript = transcript;
         this.character = character;
-        this.isRemote = isRemote;
+        this.url = url;
         this.remoteApiID = remoteApiID;
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     public String getTranscript() {
@@ -41,8 +25,8 @@ public class RegisterVideoRequest {
         return character;
     }
     
-    public boolean getIsRemote() {
-    	return isRemote;
+    public String getURL() {
+    	return url;
     }
     
     public String getRemoteID() {
