@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Video {
-    public final String vuid;
+    public  String vuid;
     public final String url;
     public final boolean remoteAvailability;
     public final boolean isRemote;
