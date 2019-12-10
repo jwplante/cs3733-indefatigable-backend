@@ -5,7 +5,6 @@ import java.util.UUID;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.amazonaws.services.s3.AmazonS3;
 
 import edu.wpi.cs.indefatigable.db.VideoDAO;
 import edu.wpi.cs.indefatigable.http.RegisterVideoRequest;
@@ -25,7 +24,7 @@ public class RegisterVideoHandler implements RequestHandler<RegisterVideoRequest
     @Override
     public RegisterVideoResponse handleRequest(RegisterVideoRequest input, Context context) {
         logger = context.getLogger();
-        logger.log("Initializing CreateVideoHandler!");
+        logger.log("Initializing RemoteVideoHandler!");
 
         try {
         	String randomUID = UUID.randomUUID().toString();
