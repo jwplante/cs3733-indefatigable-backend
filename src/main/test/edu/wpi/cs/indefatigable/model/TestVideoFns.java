@@ -1,4 +1,4 @@
-package edu.wpi.cs.indefatigable.db;
+package edu.wpi.cs.indefatigable.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;

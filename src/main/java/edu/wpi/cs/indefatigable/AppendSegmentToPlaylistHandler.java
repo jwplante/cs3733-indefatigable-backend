@@ -1,8 +1,8 @@
 package edu.wpi.cs.indefatigable;
-import edu.wpi.cs.indefatigable.db.*;
+import edu.wpi.cs.indefatigable.db.PlaylistDAO;
+import edu.wpi.cs.indefatigable.db.VideoDAO;
 import edu.wpi.cs.indefatigable.http.*;
-import edu.wpi.cs.indefatigable.model.Playlist;
-import edu.wpi.cs.indefatigable.model.Video;
+import edu.wpi.cs.indefatigable.model.*;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
