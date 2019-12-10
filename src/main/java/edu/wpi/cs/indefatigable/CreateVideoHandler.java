@@ -27,7 +27,7 @@ public class CreateVideoHandler implements RequestHandler<CreateVideoRequest, Cr
 
     // Video Upload Settings
     private final String BUCKET_NAME = "cs3733-indefatigable";
-    private final String VIDEO_PATH = "/media/";
+    private final String VIDEO_PATH = "media/";
     private final boolean DEFAULT_REMOTE_AVAILABILITY = false;
 
     /***
