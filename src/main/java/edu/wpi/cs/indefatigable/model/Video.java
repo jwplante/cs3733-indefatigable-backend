@@ -32,7 +32,7 @@ public class Video {
         this.character = character;
         this.transcript = transcript;
         this.title = title;
-        this.remoteApiID = "";
+        this.remoteApiID = null;
     }
 
     public Video(String url, boolean remoteAvailability, boolean isRemote, String character, String transcript, String title) {
@@ -43,7 +43,7 @@ public class Video {
         this.character = character;
         this.transcript = transcript;
         this.title = title;
-        this.remoteApiID = "";
+        this.remoteApiID = null;
     }
 
     public String getVuid() {
