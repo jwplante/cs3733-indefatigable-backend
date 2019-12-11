@@ -14,7 +14,4 @@ public class AppendSegmentToPlaylistResponse {
         this.error = errormessage;
     }
 
-    public String toString() {
-        return "AppendSegmentToPlaylistResponse(" + statusCode + ")";
-    }
 }

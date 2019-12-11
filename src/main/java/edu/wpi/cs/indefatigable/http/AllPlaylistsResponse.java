@@ -32,9 +32,4 @@ public class AllPlaylistsResponse {
 		this.error = error;
 	}
 	
-	public String toString() {
-		if (playlists == null) { return "No playlists"; }
-		return "AllPlaylists(" + playlists.size() + ")";
-	}
-	
 }

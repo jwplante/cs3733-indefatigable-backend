@@ -20,11 +20,4 @@ public class AllRemotelyAvailableVideosResponse {
         this.statusCode = code;
         this.error = errormessage;
     }
-
-    public String toString() {
-        if (segments == null) {
-            return "EmptyVideos";
-        }
-        return "AllVideos(" + segments.size() + ")";
-    }
 }
