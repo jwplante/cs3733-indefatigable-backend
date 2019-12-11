@@ -23,5 +23,19 @@ public class RemoteSiteHandlerTest extends LambdaTest {
         DeregisterRemoteSiteResponse res2 = new DeregisterRemoteSiteHandler().handleRequest(req2, new TestContext());
         assertEquals(200, res2.responseCode);
     }
+
+    @Test
+    public void DeregisterNotExistingSite(){
+        DeregisterRemoteSiteRequest req2 = new DeregisterRemoteSiteRequest("http://cs.wpi.edu/~heineman");
+        DeregisterRemoteSiteResponse res2 = new DeregisterRemoteSiteHandler().handleRequest(req2, new TestContext());
+        assertEquals(400, res2.responseCode);
+    }
+
+    @Test
+    public void RegisterNullSite(){
+        RegisterRemoteSiteRequest req = new RegisterRemoteSiteRequest(null);
+        RegisterRemoteSiteResponse res = new RegisterRemoteSiteHandler().handleRequest(req, new TestContext());
+        assertEquals(400, res.responseCode);
+    }
     
 }
