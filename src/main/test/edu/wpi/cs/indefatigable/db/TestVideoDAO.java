@@ -38,6 +38,5 @@ public class TestVideoDAO {
 			fail=true;
 		}
 		assertFalse(fail);
-		
 	}
 }
