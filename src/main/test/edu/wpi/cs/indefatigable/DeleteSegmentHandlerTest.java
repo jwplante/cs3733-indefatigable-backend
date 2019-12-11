@@ -25,7 +25,7 @@ public class DeleteSegmentHandlerTest extends LambdaTest {
         Assert.assertEquals(422, d_resp.statusCode);
     }
     
-    @Test (expected = Exception.class)
+    @Test
     public void nullVuidDeleteVideo() {
         DeleteVideoRequest dvr = new DeleteVideoRequest(null);
         DeleteVideoResponse d_resp = new DeleteVideoHandler().handleRequest(dvr, createContext("delete"));
