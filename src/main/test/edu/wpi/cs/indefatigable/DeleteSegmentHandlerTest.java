@@ -19,8 +19,15 @@ public class DeleteSegmentHandlerTest extends LambdaTest {
         Assert.assertEquals("uhoh", d_resp.vuid);
         
         // try again and this should fail
+        d_resp.toString();
         d_resp = new DeleteVideoHandler().handleRequest(dvr, createContext("delete"));
+        d_resp.toString();
         Assert.assertEquals(422, d_resp.statusCode);
     }
     
+    @Test (expected = Exception.class)
+    public void nullVuidDeleteVideo() {
+        DeleteVideoRequest dvr = new DeleteVideoRequest(null);
+        DeleteVideoResponse d_resp = new DeleteVideoHandler().handleRequest(dvr, createContext("delete"));
+    }
 }

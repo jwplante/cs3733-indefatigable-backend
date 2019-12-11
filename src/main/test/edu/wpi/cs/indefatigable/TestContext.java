@@ -42,17 +42,9 @@ public class TestContext implements Context {
         return awsRequestId;
     }
 
-    public void setAwsRequestId(String value) {
-        awsRequestId = value;
-    }
-
     @Override
     public ClientContext getClientContext() {
         return clientContext;
-    }
-
-    public void setClientContext(ClientContext value) {
-        clientContext = value;
     }
 
     @Override
@@ -69,17 +61,9 @@ public class TestContext implements Context {
         return identity;
     }
 
-    public void setIdentity(CognitoIdentity value) {
-        identity = value;
-    }
-
     @Override
     public String getLogGroupName() {
         return logGroupName;
-    }
-
-    public void setLogGroupName(String value) {
-        logGroupName = value;
     }
 
     @Override
@@ -87,17 +71,9 @@ public class TestContext implements Context {
         return logStreamName;
     }
 
-    public void setLogStreamName(String value) {
-        logStreamName = value;
-    }
-
     @Override
     public LambdaLogger getLogger() {
         return logger;
-    }
-
-    public void setLogger(LambdaLogger value) {
-        logger = value;
     }
 
     @Override
@@ -105,17 +81,9 @@ public class TestContext implements Context {
         return memoryLimitInMB;
     }
 
-    public void setMemoryLimitInMB(int value) {
-        memoryLimitInMB = value;
-    }
-
     @Override
     public int getRemainingTimeInMillis() {
         return remainingTimeInMillis;
-    }
-
-    public void setRemainingTimeInMillis(int value) {
-        remainingTimeInMillis = value;
     }
 
     @Override
@@ -123,17 +91,9 @@ public class TestContext implements Context {
         return functionVersion;
     }
 
-    public void setFunctionVersion(String value) {
-        functionVersion = value;
-    }
-
     @Override
     public String getInvokedFunctionArn() {
         return invokedFunctionArn;
-    }
-
-    public void setInvokedFunctionArn(String value) {
-        invokedFunctionArn = value;
     }
 
     /**
