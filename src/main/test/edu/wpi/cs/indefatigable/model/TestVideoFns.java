@@ -21,4 +21,17 @@ public class TestVideoFns {
 		assertNotEquals(v3, v4);
 		assertNotEquals(v3, v5);
 	}
+	
+	@Test
+	public void testRemoteVideoEquality() {
+		RemotelyAvailableVideo rv1 = new RemotelyAvailableVideo("google.com", "SSSSSSSPOCK", "Hello I am the Spock.");
+		RemotelyAvailableVideo rv2 = new RemotelyAvailableVideo("google.com", "SSSSSSSPOCK", "Hello I am the Spock.");
+		RemotelyAvailableVideo rv3 = new RemotelyAvailableVideo("yahoo.com", "SSSSSSSPOCK", "Hello I am the Spock.");
+		RemotelyAvailableVideo rv4 = new RemotelyAvailableVideo("google.com", "SSSSSSSPOC", "Hello I am the Spock.");
+		RemotelyAvailableVideo rv5 = new RemotelyAvailableVideo("google.com", "SSSSSSSPOCK", "Hello I am the Spocc.");
+		assertEquals(rv2, rv1);
+		assertNotEquals(rv3, rv1);
+		assertNotEquals(rv4, rv1);
+		assertNotEquals(rv5, rv1);
+	}
 }

@@ -10,7 +10,7 @@ public class SearchVideosHandlerTest extends LambdaTest {
 	SearchVideosHandler obj;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		obj = new SearchVideosHandler();
 	}
 
@@ -21,10 +21,11 @@ public class SearchVideosHandlerTest extends LambdaTest {
 		Assert.assertEquals(res.responseCode, 200);
 	}
 	
-	@Test(expected=NullPointerException.class)
+	@Test()
 	public void testSearchWithError() {
 		SearchVideosRequest req = new SearchVideosRequest("Jim", null);
 		SearchVideosResponse res = obj.handleRequest(req, createContext("search"));
+		Assert.assertEquals(res.responseCode, 400);
 	}
 
 }

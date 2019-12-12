@@ -12,11 +12,9 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
 import com.amazonaws.util.Base64;
 import edu.wpi.cs.indefatigable.db.VideoDAO;
-import edu.wpi.cs.indefatigable.http.CreatePlaylistResponse;
 import edu.wpi.cs.indefatigable.http.CreateVideoRequest;
 import edu.wpi.cs.indefatigable.http.CreateVideoResponse;
 import edu.wpi.cs.indefatigable.model.Video;
-
 import java.io.ByteArrayInputStream;
 import java.util.UUID;
 

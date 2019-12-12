@@ -22,10 +22,4 @@ public class AllVideosResponse {
         this.error = errormessage;
     }
 
-    public String toString() {
-        if (list == null) {
-            return "EmptyVideos";
-        }
-        return "AllVideos(" + list.size() + ")";
-    }
 }

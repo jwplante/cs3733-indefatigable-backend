@@ -13,23 +13,6 @@ public class RemotelyAvailableVideo {
         this.text = text;
     }
 
-
-    public String getUrl() {
-        return url;
-    }
-
-    public String getCharacter() {
-        return character;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public String getTitle() {
-        return null;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -38,10 +21,5 @@ public class RemotelyAvailableVideo {
         return  Objects.equals(url, video.url) &&
                 Objects.equals(character, video.character) &&
                 Objects.equals(text, video.text);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(url, character, text);
     }
 }

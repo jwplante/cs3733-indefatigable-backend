@@ -19,11 +19,4 @@ public class AllRemoteSitesResponse {
         this.statusCode = code;
         this.error = errormessage;
     }
-
-    public String toString(){
-        if(urls == null){
-            return "EmptyRemoteSites";
-        }
-        return "AllRemoteSites(" + urls.size() + ")";
-    }
 }
